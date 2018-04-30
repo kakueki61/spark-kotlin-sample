@@ -1,0 +1,21 @@
+.gradle
+/local.properties
+/build
+
+# generated files
+gen
+bin
+
+# IDE
+out
+.idea/*
+!.idea/codeStyleSettings.xml
+*.iml
+.project
+.classpath
+
+# OSX
+.DS_Store
+
+# Windows
+Thumbs.db
