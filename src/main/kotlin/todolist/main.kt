@@ -2,8 +2,7 @@ package todolist
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.registerKotlinModule
-import spark.Spark.get
-import spark.Spark.post
+import spark.Spark.*
 
 fun main(args: Array<String>) {
     val objectMapper = ObjectMapper().registerKotlinModule()
@@ -24,6 +23,10 @@ fun main(args: Array<String>) {
 //        objectMapper.writeValueAsString(tasks)
 //    }
 
-    get("/tasks", taskController.index(), jsonTransformer)
-    post("/tasks", taskController.create(), jsonTransformer)
+    path("/tasks") {
+        get("", taskController.index(), jsonTransformer)
+        post("", taskController.create(), jsonTransformer)
+        get("/:id", taskController.show(), jsonTransformer)
+        delete("/:id", taskController.destroy(), jsonTransformer)
+    }
 }

@@ -8,10 +8,16 @@ class TaskRepository {
 
     fun findAll() = tasks.toList()
 
+    fun findById(id: Long) = tasks.find { it.id == id }
+
     fun create(content: String): Task {
         val id = maxId + 1
         val task = Task(id, content, false)
         tasks.add(task)
         return task
+    }
+
+    fun delete(task: Task) {
+        tasks.removeIf { (id) -> id == task.id }
     }
 }
