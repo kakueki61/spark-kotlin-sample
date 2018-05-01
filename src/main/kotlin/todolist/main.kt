@@ -6,6 +6,9 @@ import spark.Spark.get
 
 fun main(args: Array<String>) {
     val objectMapper = ObjectMapper().registerKotlinModule()
+    val jsonTransformer = JsonTransformer(objectMapper)
+    val taskController = TaskController()
+
     get("/hello") { request, response ->
         val name = request.queryParams("name")
         "Hello ${name ?: "world"}!!"
@@ -19,10 +22,5 @@ fun main(args: Array<String>) {
 //        objectMapper.writeValueAsString(tasks)
 //    }
 
-    get("/tasks", { request, response ->
-        listOf(
-                Task(1, "靴の修理をする", false),
-                Task(2, "旅行の荷物を準備する", true)
-        )
-    }, objectMapper::writeValueAsString)
+    get("/tasks", taskController.index(), jsonTransformer)
 }
